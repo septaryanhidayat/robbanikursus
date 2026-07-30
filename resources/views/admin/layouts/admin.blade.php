@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - Robbani Kursus & Privat</title>
+    <title>Dashboard Admin - {{ \App\Models\SiteSetting::getByKey('site_title', 'Robbani Kursus & Privat') }}</title>
     
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -13,22 +13,26 @@
 </head>
 <body class="bg-slate-100 font-sans text-slate-800 antialiased" x-data="{ sidebarOpen: false }">
 
+    @php
+        $siteTitle = \App\Models\SiteSetting::getByKey('site_title', 'Robbani Kursus & Privat');
+    @endphp
+
     <div class="min-h-screen flex">
         <!-- Sidebar Navigation -->
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'" class="fixed md:static inset-y-0 left-0 z-40 w-64 bg-[#1E3A8B] text-white transition-transform duration-300 ease-in-out flex flex-col justify-between shadow-xl">
             <div>
                 <!-- Brand Logo Area -->
-                <div class="h-20 px-6 flex items-center justify-between border-b border-blue-900/80">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-xl shadow">
-                            R
+                <div class="h-20 px-5 flex items-center justify-between border-b border-blue-900/80">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="bg-white p-1 rounded-xl shadow w-10 h-10 shrink-0 flex items-center justify-center overflow-hidden">
+                            <x-site-logo class="max-h-full max-w-full" />
                         </div>
-                        <div>
-                            <span class="font-extrabold text-lg text-white block leading-tight">ROBBANI</span>
-                            <span class="text-[10px] text-amber-300 font-bold uppercase tracking-widest block">Panel Pengelola</span>
+                        <div class="min-w-0">
+                            <span class="font-extrabold text-xs sm:text-sm text-white block leading-tight truncate max-w-[130px]">{{ $siteTitle }}</span>
+                            <span class="text-[9px] text-amber-300 font-bold uppercase tracking-widest block">Panel Pengelola</span>
                         </div>
                     </div>
-                    <button @click="sidebarOpen = false" class="md:hidden text-blue-200 hover:text-white">
+                    <button @click="sidebarOpen = false" class="md:hidden text-blue-200 hover:text-white p-1">
                         ✕
                     </button>
                 </div>
@@ -80,9 +84,9 @@
             <!-- Footer Sidebar / User Info -->
             <div class="p-4 border-t border-blue-900/80">
                 <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-extrabold text-white">{{ auth()->user()->name ?? 'Admin' }}</p>
-                        <p class="text-[10px] text-blue-200">{{ auth()->user()->email ?? '' }}</p>
+                    <div class="min-w-0 pr-2">
+                        <p class="text-xs font-extrabold text-white truncate">{{ auth()->user()->name ?? 'Admin' }}</p>
+                        <p class="text-[10px] text-blue-200 truncate">{{ auth()->user()->email ?? '' }}</p>
                     </div>
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf

@@ -20,41 +20,38 @@
 <body class="antialiased bg-slate-50 text-slate-800 flex flex-col min-h-screen font-sans" x-data="{ regModalOpen: false, modalProgramType: 'Kursus', modalLevel: 'SD/MI' }">
 
     <!-- Top Announcement Bar -->
-    <div class="bg-amber-400 text-slate-900 text-xs sm:text-sm font-bold py-2 px-4 text-center flex justify-center items-center gap-2 shadow-inner">
-        <span class="bg-red-600 text-white text-[10px] uppercase px-2 py-0.5 rounded-full font-black tracking-wider animate-pulse">TELAH DIBUKA!</span>
-        <span>Pendaftaran Kursus & Privat Robbani Tahun Ajaran 2026/2027</span>
-        <button @click="regModalOpen = true" class="underline hover:text-navy-900 ml-1 cursor-pointer font-extrabold">Daftar Online &rarr;</button>
+    <div class="bg-amber-400 text-slate-900 text-xs sm:text-sm font-bold py-2.5 px-4 text-center flex flex-wrap justify-center items-center gap-2 shadow-inner">
+        <span class="bg-red-600 text-white text-[10px] uppercase px-2.5 py-0.5 rounded-full font-black tracking-wider animate-pulse">
+            {{ $settings['promo_badge'] ?? 'GRATIS BIAYA PENDAFTARAN!' }}
+        </span>
+        <span>Pendaftaran Kursus, Privat & Coding For Kids Robbani!</span>
+        <button @click="regModalOpen = true" class="underline hover:text-navy-900 ml-1 cursor-pointer font-extrabold">Daftar Sekarang &rarr;</button>
     </div>
 
     <!-- Header / Navbar -->
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all" x-data="{ mobileMenuOpen: false }">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             <!-- Brand Logo -->
-            <a href="{{ route('landing') }}" class="flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-900 via-indigo-900 to-amber-500 p-2 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center text-white">
-                    <!-- Book Star Logo SVG -->
-                    <svg class="w-8 h-8 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-[#1E3A8B] block leading-none">ROBBANI</span>
-                    <span class="text-xs font-bold text-slate-500 tracking-wider uppercase block">KURSUS & PRIVAT</span>
+            <a href="{{ route('landing') }}" class="flex items-center gap-3 group shrink-0">
+                <div class="h-12 w-auto max-w-[200px] flex items-center justify-center">
+                    <x-site-logo class="h-12 w-auto max-w-full group-hover:scale-105 transition-transform" />
                 </div>
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-700">
+            <nav class="hidden md:flex items-center gap-7 text-sm font-bold text-slate-700">
                 <a href="#beranda" class="hover:text-[#1E3A8B] transition-colors py-2">Beranda</a>
+                <a href="#coding" class="text-indigo-600 font-extrabold hover:text-[#1E3A8B] transition-colors py-2 flex items-center gap-1">
+                    <span>💻</span> Coding For Kids
+                </a>
                 <a href="#keunggulan" class="hover:text-[#1E3A8B] transition-colors py-2">Keunggulan</a>
                 <a href="#program" class="hover:text-[#1E3A8B] transition-colors py-2">Program & Mapel</a>
                 <a href="#biaya" class="hover:text-[#1E3A8B] transition-colors py-2">Rincian Biaya</a>
-                <a href="#berita" class="hover:text-[#1E3A8B] transition-colors py-2">Berita</a>
                 <a href="#kontak" class="hover:text-[#1E3A8B] transition-colors py-2">Kontak</a>
             </nav>
 
             <!-- Actions -->
-            <div class="hidden sm:flex items-center gap-3">
+            <div class="hidden sm:flex items-center gap-3 shrink-0">
                 @auth
                     <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 text-xs font-bold text-[#1E3A8B] bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition">
                         Dashboard Admin
@@ -87,10 +84,10 @@
         <!-- Mobile Menu Overlay -->
         <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-3">
             <a href="#beranda" @click="mobileMenuOpen = false" class="block font-semibold py-2 text-slate-700 border-b border-slate-100">Beranda</a>
+            <a href="#coding" @click="mobileMenuOpen = false" class="block font-extrabold py-2 text-indigo-600 border-b border-slate-100">💻 Coding For Kids</a>
             <a href="#keunggulan" @click="mobileMenuOpen = false" class="block font-semibold py-2 text-slate-700 border-b border-slate-100">Keunggulan</a>
             <a href="#program" @click="mobileMenuOpen = false" class="block font-semibold py-2 text-slate-700 border-b border-slate-100">Program & Mapel</a>
             <a href="#biaya" @click="mobileMenuOpen = false" class="block font-semibold py-2 text-slate-700 border-b border-slate-100">Rincian Biaya</a>
-            <a href="#berita" @click="mobileMenuOpen = false" class="block font-semibold py-2 text-slate-700 border-b border-slate-100">Berita</a>
             <a href="#kontak" @click="mobileMenuOpen = false" class="block font-semibold py-2 text-slate-700">Kontak</a>
             <div class="pt-2 flex flex-col gap-2">
                 <button @click="mobileMenuOpen = false; regModalOpen = true" class="w-full py-3 bg-[#F59E0B] text-slate-900 font-extrabold rounded-xl shadow text-center">
@@ -111,21 +108,25 @@
             <!-- Brand Info -->
             <div class="space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-amber-400 text-[#1E3A8B] flex items-center justify-center font-black text-xl">
-                        R
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-extrabold tracking-wide">ROBBANI</h3>
-                        <p class="text-xs text-blue-200 uppercase font-bold tracking-widest">Kursus & Privat</p>
+                    <div class="bg-white p-2 rounded-xl shadow-md inline-block">
+                        <x-site-logo class="h-10 w-auto max-w-[180px]" />
                     </div>
                 </div>
                 <p class="text-blue-100 text-sm leading-relaxed">
-                    Tempat terbaik untuk membantu anak meraih prestasi, percaya diri, dan masa depan gemilang melalui bimbingan belajar berkualitas dan personal.
+                    Tempat terbaik untuk membantu anak meraih prestasi, percaya diri, dan masa depan gemilang melalui bimbingan belajar berkualitas dan privat personal.
                 </p>
-                <div class="pt-2 flex gap-3">
+                <div class="pt-2 flex items-center gap-3">
+                    <!-- Instagram -->
                     <a href="https://instagram.com/{{ str_replace('@', '', $settings['contact_instagram'] ?? 'robbanikursus_privat') }}" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-amber-400 hover:text-[#1E3A8B] transition flex items-center justify-center">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-full bg-white/10 hover:bg-amber-400 hover:text-[#1E3A8B] transition flex items-center justify-center">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                         </svg>
                     </a>
                 </div>
@@ -135,9 +136,9 @@
             <div class="space-y-4">
                 <h4 class="text-lg font-bold text-[#F59E0B]">Informasi Program</h4>
                 <ul class="space-y-2 text-sm text-blue-100 font-medium">
+                    <li><a href="#coding" class="hover:text-white transition font-bold text-amber-300">✓ Coding For Kids (SD, SMP, SMA)</a></li>
                     <li><a href="#program" class="hover:text-white transition">✓ Bimbingan Reguler Semua Mapel</a></li>
                     <li><a href="#program" class="hover:text-white transition">✓ Kelas Tahsin & Tahfidz Al-Qur'an</a></li>
-                    <li><a href="#program" class="hover:text-white transition">✓ Kursus Komputer Modern</a></li>
                     <li><a href="#biaya" class="hover:text-white transition">✓ Guru Privat datang ke Rumah</a></li>
                     <li><a href="#keunggulan" class="hover:text-white transition">✓ Pendampingan Belajar Personal</a></li>
                 </ul>
@@ -152,7 +153,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
-                        <span>{{ $settings['contact_address'] ?? 'Jl. Sarjana Blok A 25, Kel. Timbangan, Indralaya Utara Ogan Ilir' }}</span>
+                        <span>{{ $settings['contact_address'] ?? 'Kantor Robbani Kursus & Privat, Jl. Sarjana Blok A No. 25 Timbangan, Ogan Ilir' }}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-5 h-5 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,6 +166,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
                         </svg>
                         <span>Instagram: {{ $settings['contact_instagram'] ?? '@robbanikursus_privat' }}</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                        </svg>
+                        <span>FB: {{ $settings['contact_facebook'] ?? 'Robbani Kursus & Privat' }}</span>
                     </li>
                 </ul>
             </div>
@@ -188,7 +195,7 @@
                 </button>
 
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xl">
                         📝
                     </div>
                     <div>
@@ -201,17 +208,17 @@
                     @csrf
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Siswa *</label>
-                        <input type="text" name="student_name" required placeholder="Contoh: Muhammad Rizky" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8B] text-sm">
+                        <input type="text" name="student_name" required placeholder="Contoh: Fathan Alghifari" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8B] text-sm">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Orang Tua / Wali *</label>
-                            <input type="text" name="parent_name" required placeholder="Contoh: Bapak Ahmad" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8B] text-sm">
+                            <input type="text" name="parent_name" required placeholder="Contoh: Ibu Rahmawati" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8B] text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">No. HP / WhatsApp *</label>
-                            <input type="text" name="phone_number" required placeholder="Contoh: 08123456789" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8B] text-sm">
+                            <input type="text" name="phone_number" required placeholder="Contoh: 081272218275" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#1E3A8B] text-sm">
                         </div>
                     </div>
 
@@ -235,8 +242,12 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Pilih Mata Pelajaran (Opsional)</label>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Pilih Program / Mata Pelajaran</label>
                         <div class="grid grid-cols-2 gap-2 text-xs">
+                            <label class="flex items-center gap-2 p-2 rounded-lg border border-indigo-200 bg-indigo-50/50 hover:bg-indigo-100 cursor-pointer col-span-2 font-bold text-indigo-900">
+                                <input type="checkbox" name="selected_subjects[]" value="Coding For Kids" checked class="rounded text-indigo-600">
+                                <span>💻 Coding For Kids</span>
+                            </label>
                             <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-100 hover:bg-slate-50 cursor-pointer">
                                 <input type="checkbox" name="selected_subjects[]" value="Calistung" class="rounded text-[#1E3A8B]">
                                 <span>Calistung</span>

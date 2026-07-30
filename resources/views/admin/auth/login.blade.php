@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Staff Admin - Robbani Kursus & Privat</title>
+    <title>Login Staff Admin - {{ \App\Models\SiteSetting::getByKey('site_title', 'Robbani Kursus & Privat') }}</title>
     
     <!-- Tailwind Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -13,11 +13,11 @@
     <div class="w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl border-4 border-amber-400">
         
         <!-- Header Brand -->
-        <div class="text-center space-y-2 mb-8">
-            <div class="inline-flex w-16 h-16 rounded-2xl bg-[#1E3A8B] text-amber-400 items-center justify-center font-black text-3xl shadow-md mb-2">
-                R
+        <div class="text-center space-y-2 mb-8 flex flex-col items-center">
+            <div class="w-20 h-20 p-2.5 rounded-2xl bg-white shadow-md flex items-center justify-center mb-1 border border-slate-100 overflow-hidden">
+                <x-site-logo class="max-h-full max-w-full" />
             </div>
-            <h1 class="text-2xl font-black text-[#1E3A8B] tracking-tight">ROBBANI KURSUS & PRIVAT</h1>
+            <h1 class="text-xl font-black text-[#1E3A8B] tracking-tight uppercase">{{ \App\Models\SiteSetting::getByKey('site_title', 'Robbani Kursus & Privat') }}</h1>
             <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Login Dashboard Pengelola</p>
         </div>
 

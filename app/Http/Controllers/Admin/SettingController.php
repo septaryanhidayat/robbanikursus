@@ -18,16 +18,17 @@ class SettingController extends Controller
     {
         $inputs = $request->except('_token');
 
-        foreach ($inputs as $key => $value) {
-            if ($request->hasFile($key)) {
-                $file = $request->file($key);
-                $path = $file->store('settings', 'public');
-                SiteSetting::setByKey($key, 'storage/' . $path);
-            } else {
-                SiteSetting::setByKey($key, $value);
-            }
+        // Handle file uploads (e.g. site_logo)
+        if ($request->hasFile('site_logo')) {
+            $path = $request->file('site_logo')->store('settings', 'public');
+            SiteSetting::setByKey('site_logo', 'storage/' . $path);
+            unset($inputs['site_logo']);
         }
 
-        return back()->with('success', 'Pengaturan situs berhasil disimpan.');
+        foreach ($inputs as $key => $value) {
+            SiteSetting::setByKey($key, $value);
+        }
+
+        return back()->with('success', 'Pengaturan situs & logo berhasil disimpan.');
     }
 }
