@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../../resources/views/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Nunito', 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --color-brand-navy: #1E3A8B;
+    --color-brand-gold: #F59E0B;
+    --color-brand-red: #EF4444;
+    --color-brand-blue: #38BDF8;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: #F8FAFC;
+    color: #1E293B;
+}
+
+/* Custom Utilities */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+}
+
+.gradient-hero {
+    background: linear-gradient(135deg, #1E3A8B 0%, #1E40AF 60%, #0284C7 100%);
+}
+
+.gradient-gold {
+    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+}
+
+.gradient-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 100%);
+}

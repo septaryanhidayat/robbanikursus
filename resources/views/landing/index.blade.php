@@ -1,0 +1,364 @@
+@extends('layouts.app')
+
+@section('content')
+
+<!-- Hero Section -->
+<section id="beranda" class="relative overflow-hidden bg-gradient-to-br from-[#1E3A8B] via-[#1e40af] to-sky-700 text-white pt-12 pb-20 lg:pt-20 lg:pb-28">
+    <!-- Decorative background elements -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-sky-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Hero Text -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-xs sm:text-sm font-bold text-amber-300">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+                    <span>Bimbingan Belajar & Privat Terpercaya</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight uppercase">
+                    {{ $settings['hero_headline'] ?? 'PENDAFTARAN ROBBANI KURSUS & PRIVAT TELAH DIBUKA!' }}
+                </h1>
+
+                <p class="text-base sm:text-xl text-blue-100 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    {{ $settings['hero_subheadline'] ?? 'Belajar jadi lebih mudah, menyenangkan, dan sesuai kebutuhan anak. Mulai dari TK, SD, SMP, hingga SMA, dengan pengajar berpengalaman dan jadwal yang fleksibel.' }}
+                </p>
+
+                <!-- Hero Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                    <button @click="regModalOpen = true" class="w-full sm:w-auto px-8 py-4 bg-[#F59E0B] hover:bg-amber-500 text-slate-900 text-base font-black rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 cursor-pointer">
+                        <span>DAFTAR SEKARANG</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['contact_phone'] ?? '081272218275') }}?text={{ urlencode('Halo Robbani Kursus & Privat, saya ingin konsultasi mengenai program belajar anak.') }}" target="_blank" class="w-full sm:w-auto px-7 py-4 bg-emerald-500 hover:bg-emerald-600 text-white text-base font-extrabold rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                        </svg>
+                        <span>TANYA PROGRAM (WA)</span>
+                    </a>
+                </div>
+
+                <!-- Level Badges -->
+                <div class="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-blue-200 mr-2">Jenjang:</span>
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-extrabold text-white">TK / PAUD</span>
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-extrabold text-white">SD / MI</span>
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-extrabold text-white">SMP / MTS</span>
+                    <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-extrabold text-white">SMA / MA</span>
+                </div>
+            </div>
+
+            <!-- Right Visual Banner Card -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-full max-w-md bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-amber-400 transform lg:rotate-1 hover:rotate-0 transition-transform">
+                    <div class="absolute -top-5 -right-5 bg-red-500 text-white font-black text-xs uppercase px-4 py-1.5 rounded-full shadow-lg border-2 border-white tracking-widest">
+                        SUPER PROMO
+                    </div>
+
+                    <div class="text-center space-y-4">
+                        <div class="inline-block bg-blue-100 text-[#1E3A8B] font-extrabold text-xs px-3 py-1 rounded-full uppercase">
+                            Belajar Seru & Berprestasi
+                        </div>
+                        <h2 class="text-2xl font-black text-[#1E3A8B] leading-tight">
+                            Raih Masa Depan Gemilang Bersama Robbani!
+                        </h2>
+
+                        <!-- Feature List in Card -->
+                        <div class="bg-slate-50 rounded-2xl p-4 text-left space-y-2.5 text-xs font-bold text-slate-700">
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold text-base">✓</span>
+                                <span>Tutor Berpengalaman & Sabar</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold text-base">✓</span>
+                                <span>Bebas Pilih Mata Pelajaran</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold text-base">✓</span>
+                                <span>Bisa Belajar Privat di Rumah</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold text-base">✓</span>
+                                <span>Jadwal Fleksibel & Menyenangkan</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button @click="regModalOpen = true" class="w-full py-3 bg-[#1E3A8B] hover:bg-blue-900 text-white font-extrabold rounded-xl shadow-md transition text-sm flex items-center justify-center gap-2">
+                                🌟 Konsultasi Belajar Gratis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Keunggulan Section -->
+<section id="keunggulan" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-amber-500 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                MENGAPA MEMILIH KAMI?
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-[#1E3A8B] mt-3">
+                Keunggulan Robbani Kursus & Privat
+            </h2>
+            <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                Kami berkomitmen memberikan bimbingan belajar terbaik yang disesuaikan khusus dengan karakteristik dan gaya belajar setiap siswa.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            @forelse($advantages as $adv)
+                <div class="p-8 rounded-3xl bg-slate-50 hover:bg-gradient-to-br hover:from-blue-50 hover:to-amber-50/50 border border-slate-100 hover:border-blue-200 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 rounded-2xl bg-[#1E3A8B] text-amber-400 flex items-center justify-center text-2xl font-black shadow-md group-hover:scale-110 transition-transform mb-6">
+                        🏆
+                    </div>
+                    <h3 class="text-xl font-extrabold text-[#1E3A8B] mb-2 group-hover:text-blue-900">
+                        {{ $adv->title }}
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        {{ $adv->description ?? 'Pendampingan belajar yang optimal demi pencapaian prestasi akademik dan non-akademik siswa.' }}
+                    </p>
+                </div>
+            @empty
+                <!-- Fallback Advantages if DB empty -->
+                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                    <h3 class="font-extrabold text-[#1E3A8B]">Pengajar Berpengalaman</h3>
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<!-- Program & Mata Pelajaran Section -->
+<section id="program" class="py-20 bg-sky-50/60 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-[#1E3A8B] bg-blue-100 px-3 py-1 rounded-full">
+                PILIHAN PROGRAM BELAJAR
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-[#1E3A8B] mt-3">
+                Program Utama & Mata Pelajaran
+            </h2>
+            <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                Pilih program bimbingan belajar yang sesuai kebutuhan minat dan akademik putra-putri Anda.
+            </p>
+        </div>
+
+        <!-- Main Programs Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            @foreach($programs as $prog)
+                <div class="bg-white rounded-3xl p-8 shadow-md hover:shadow-xl transition-all border border-slate-100 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center text-xl font-black shadow-md">
+                                {{ $prog->badge_number ?? '123' }}
+                            </div>
+                            <span class="text-xs font-bold text-[#1E3A8B] bg-blue-50 px-3 py-1 rounded-full uppercase">Program Unggulan</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-[#1E3A8B] mb-3 group-hover:text-amber-600 transition-colors">
+                            {{ $prog->title }}
+                        </h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            {{ $prog->description }}
+                        </p>
+                    </div>
+
+                    <button @click="regModalOpen = true; modalProgramType = 'Kursus'" class="w-full py-3 bg-blue-50 hover:bg-[#1E3A8B] text-[#1E3A8B] hover:text-white font-extrabold rounded-2xl transition text-sm flex items-center justify-center gap-2 cursor-pointer">
+                        Pilih Program Ini &rarr;
+                    </button>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Mata Pelajaran Pills Badges -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-lg border border-slate-100">
+            <h3 class="text-xl sm:text-2xl font-black text-center text-[#1E3A8B] mb-6">
+                📚 Mata Pelajaran yang Tersedia
+            </h3>
+            <div class="flex flex-wrap justify-center gap-3">
+                @foreach($subjects as $subj)
+                    <span class="px-5 py-2.5 rounded-full text-sm font-extrabold bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 shadow-sm hover:scale-105 transition-transform">
+                        ✨ {{ $subj->name }}
+                    </span>
+                @endforeach
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Rincian Biaya Section -->
+<section id="biaya" class="py-20 bg-white" x-data="{ pricingTab: 'kursus' }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-red-500 bg-red-50 px-3 py-1 rounded-full border border-red-200">
+                INVENTARIS HARGA TRANSPARAN
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-[#1E3A8B] mt-3">
+                Rincian Biaya Program
+            </h2>
+            <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                Investasi pendidikan terbaik dengan biaya terjangkau & fleksibel.
+            </p>
+
+            <!-- Tab Buttons -->
+            <div class="inline-flex p-1.5 bg-slate-100 rounded-2xl mt-8 shadow-inner">
+                <button @click="pricingTab = 'kursus'" :class="pricingTab === 'kursus' ? 'bg-[#1E3A8B] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'" class="px-6 py-3 rounded-xl text-sm font-extrabold transition-all cursor-pointer">
+                    🏫 KURSUS (Reguler)
+                </button>
+                <button @click="pricingTab = 'privat'" :class="pricingTab === 'privat' ? 'bg-[#1E3A8B] text-white shadow-md' : 'text-slate-600 hover:text-slate-900'" class="px-6 py-3 rounded-xl text-sm font-extrabold transition-all cursor-pointer">
+                    🏡 PRIVAT (Di Rumah)
+                </button>
+            </div>
+        </div>
+
+        <!-- Kursus Pricing Cards -->
+        <div x-show="pricingTab === 'kursus'" x-transition class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @foreach($pricingsKursus as $pk)
+                <div class="bg-slate-50 hover:bg-white rounded-3xl p-8 border-2 border-slate-100 hover:border-[#1E3A8B] shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative">
+                    <div>
+                        <div class="inline-block bg-blue-100 text-[#1E3A8B] font-extrabold text-xs px-3 py-1 rounded-full uppercase mb-4">
+                            Reguler • {{ $pk->level }}
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Tingkat {{ $pk->level }}</h3>
+                        <div class="my-6">
+                            <span class="text-3xl sm:text-4xl font-black text-red-500">Rp {{ number_format($pk->price, 0, ',', '.') }}</span>
+                            <span class="text-slate-500 text-sm font-semibold">/ {{ $pk->period }}</span>
+                        </div>
+                        <ul class="space-y-3 text-xs sm:text-sm font-semibold text-slate-600 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold">✓</span> Pendampingan Kelas Reguler
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold">✓</span> Bebas Konsultasi PR & Tugas
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold">✓</span> Modul & Evaluasi Pembelajaran
+                            </li>
+                        </ul>
+                    </div>
+                    <button @click="regModalOpen = true; modalProgramType = 'Kursus'; modalLevel = '{{ $pk->level }}'" class="w-full py-3.5 bg-[#F59E0B] hover:bg-amber-500 text-slate-900 font-extrabold rounded-2xl shadow transition text-center cursor-pointer">
+                        Pilih Paket Reguler
+                    </button>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Privat Pricing Cards -->
+        <div x-show="pricingTab === 'privat'" x-transition class="grid grid-cols-1 md:grid-cols-3 gap-8" style="display: none;">
+            @foreach($pricingsPrivat as $pp)
+                <div class="bg-slate-50 hover:bg-white rounded-3xl p-8 border-2 border-slate-100 hover:border-amber-400 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative">
+                    <div class="absolute -top-3 right-6 bg-red-500 text-white font-extrabold text-[10px] uppercase px-3 py-1 rounded-full">
+                        Privat Rumah
+                    </div>
+                    <div>
+                        <div class="inline-block bg-amber-100 text-amber-800 font-extrabold text-xs px-3 py-1 rounded-full uppercase mb-4">
+                            Privat • {{ $pp->level }}
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Tingkat {{ $pp->level }}</h3>
+                        <div class="my-6">
+                            <span class="text-3xl sm:text-4xl font-black text-[#1E3A8B]">Rp {{ number_format($pp->price, 0, ',', '.') }}</span>
+                            <span class="text-slate-500 text-sm font-semibold">/ {{ $pp->period }}</span>
+                        </div>
+                        <ul class="space-y-3 text-xs sm:text-sm font-semibold text-slate-600 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold">✓</span> Guru Datang Langsung ke Rumah
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold">✓</span> Bimbingan 1-on-1 Eksklusif
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-500 font-extrabold">✓</span> Jadwal Sangat Fleksibel
+                            </li>
+                        </ul>
+                    </div>
+                    <button @click="regModalOpen = true; modalProgramType = 'Privat'; modalLevel = '{{ $pp->level }}'" class="w-full py-3.5 bg-[#1E3A8B] hover:bg-blue-900 text-white font-extrabold rounded-2xl shadow transition text-center cursor-pointer">
+                        Pilih Paket Privat
+                    </button>
+                </div>
+            @endforeach
+        </div>
+
+    </div>
+</section>
+
+<!-- News & Activity Showcase Section -->
+@if($newsList->count() > 0)
+<section id="berita" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-[#1E3A8B] bg-blue-100 px-3 py-1 rounded-full">
+                KABAR & INFORMASI
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-[#1E3A8B] mt-3">
+                Kegiatan & Berita Terbaru
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @foreach($newsList as $item)
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition border border-slate-100 flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-gradient-to-r from-blue-900 to-indigo-800 flex items-center justify-center text-white relative">
+                            @if($item->image)
+                                <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                            @else
+                                <span class="text-4xl">📢</span>
+                            @endif
+                            <span class="absolute top-4 left-4 bg-amber-400 text-slate-900 font-extrabold text-[10px] uppercase px-3 py-1 rounded-full">
+                                {{ strtoupper($item->category) }}
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-xs text-slate-400 font-semibold mb-2">
+                                {{ $item->published_at ? $item->published_at->format('d M Y') : '' }}
+                            </div>
+                            <h3 class="text-lg font-black text-slate-800 mb-2 leading-snug">
+                                {{ $item->title }}
+                            </h3>
+                            <p class="text-slate-600 text-xs leading-relaxed line-clamp-3">
+                                {{ $item->summary ?? Str::limit(strip_tags($item->content), 120) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+<!-- Call To Action Banner -->
+<section class="py-16 bg-gradient-to-r from-[#1E3A8B] via-blue-900 to-amber-500 text-white relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
+        <h2 class="text-3xl sm:text-5xl font-black leading-tight uppercase tracking-wide text-amber-300">
+            {{ $settings['cta_banner_title'] ?? 'Belajar Seru, Prestasi Meraih, Masa Depan Gemilang!' }}
+        </h2>
+        <p class="text-base sm:text-xl text-blue-100 font-medium max-w-3xl mx-auto">
+            {{ $settings['cta_banner_description'] ?? 'Yuk, daftarkan putra-putri Anda dan wujudkan prestasi terbaik bersama Robbani Kursus & Privat! Tempat terbaik untuk membantu anak meraih prestasi dan percaya diri.' }}
+        </p>
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button @click="regModalOpen = true" class="w-full sm:w-auto px-10 py-4 bg-amber-400 hover:bg-amber-300 text-slate-900 font-black text-lg rounded-2xl shadow-2xl transition transform hover:scale-105 cursor-pointer">
+                AYO, DAFTAR SEKARANG!
+            </button>
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['contact_phone'] ?? '081272218275') }}" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-extrabold text-base rounded-2xl border border-white/30 backdrop-blur-md transition">
+                Hubungi Kami via WA
+            </a>
+        </div>
+    </div>
+</section>
+
+@endsection
