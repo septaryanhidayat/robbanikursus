@@ -7,6 +7,33 @@
     <title>{{ $settings['site_title'] ?? 'Robbani Kursus & Privat' }} - Belajar Seru, Prestasi Meraih!</title>
     <meta name="description" content="{{ $settings['hero_subheadline'] ?? 'Bimbingan belajar dan privat terpercaya untuk TK, SD, SMP, SMA di Indralaya Ogan Ilir.' }}">
     
+    @php
+        $logoSetting = \App\Models\SiteSetting::getByKey('site_logo', 'images/logo.jpg');
+        $cleanLogoSetting = ltrim(str_replace('\\', '/', $logoSetting), '/');
+        $ogLogoUrl = file_exists(public_path($cleanLogoSetting)) ? asset($cleanLogoSetting) : asset('images/logo.jpg');
+    @endphp
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{{ $ogLogoUrl }}">
+    <link rel="shortcut icon" href="{{ $ogLogoUrl }}">
+    <link rel="apple-touch-icon" href="{{ $ogLogoUrl }}">
+
+    <!-- Open Graph / Facebook / WhatsApp / Social Share -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $settings['site_title'] ?? 'Robbani Kursus & Privat' }} - Belajar Seru, Prestasi Meraih!">
+    <meta property="og:description" content="{{ $settings['hero_subheadline'] ?? 'Bimbingan belajar dan privat terpercaya untuk TK, SD, SMP, SMA di Indralaya Ogan Ilir.' }}">
+    <meta property="og:image" content="{{ $ogLogoUrl }}">
+    <meta property="og:image:secure_url" content="{{ $ogLogoUrl }}">
+    <meta property="og:image:type" content="image/jpeg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $settings['site_title'] ?? 'Robbani Kursus & Privat' }} - Belajar Seru, Prestasi Meraih!">
+    <meta name="twitter:description" content="{{ $settings['hero_subheadline'] ?? 'Bimbingan belajar dan privat terpercaya untuk TK, SD, SMP, SMA di Indralaya Ogan Ilir.' }}">
+    <meta name="twitter:image" content="{{ $ogLogoUrl }}">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         $settings = [
             'site_title' => 'Robbani Kursus & Privat',
             'site_tagline' => 'Belajar Seru, Prestasi Meraih, Masa Depan Gemilang!',
-            'site_logo' => 'images/logo.svg',
+            'site_logo' => 'images/logo.jpg',
             'hero_headline' => 'PENDAFTARAN ROBBANI KURSUS & PRIVAT TELAH DIBUKA!',
             'hero_subheadline' => 'Menyediakan bimbingan belajar terlengkap (TK, SD, SMP, SMA) dan program spesial Coding For Kids. Pengajar berpengalaman, tempat belajar nyaman & privat di rumah.',
             'contact_phone' => '0812-7221-8275',

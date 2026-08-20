@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - {{ \App\Models\SiteSetting::getByKey('site_title', 'Robbani Kursus & Privat') }}</title>
     
+    @php
+        $adminLogoSetting = \App\Models\SiteSetting::getByKey('site_logo', 'images/logo.jpg');
+        $cleanAdminLogoSetting = ltrim(str_replace('\\', '/', $adminLogoSetting), '/');
+        $adminLogoUrl = file_exists(public_path($cleanAdminLogoSetting)) ? asset($cleanAdminLogoSetting) : asset('images/logo.jpg');
+    @endphp
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="{{ $adminLogoUrl }}">
+    <link rel="shortcut icon" href="{{ $adminLogoUrl }}">
+    <link rel="apple-touch-icon" href="{{ $adminLogoUrl }}">
+
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
