@@ -459,29 +459,51 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($newsList as $item)
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition border border-slate-100 flex flex-col justify-between">
+                @php
+                    $cleanImg = $item->image ? ltrim(str_replace('\\', '/', $item->image), '/') : null;
+                    $hasImg = $cleanImg && file_exists(public_path($cleanImg));
+                    $imgUrl = $hasImg ? asset($cleanImg) : ($item->image ? asset($item->image) : null);
+                @endphp
+                <div @click="newsModalOpen = true; selectedNews = {
+                        title: '{{ addslashes($item->title) }}',
+                        category: '{{ strtoupper($item->category) }}',
+                        published_at: '{{ $item->published_at ? $item->published_at->format('d M Y') : '' }}',
+                        summary: '{{ addslashes($item->summary ?? '') }}',
+                        content: '{{ addslashes($item->content) }}',
+                        image: '{{ $imgUrl }}'
+                    }" 
+                    class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col justify-between cursor-pointer group transform hover:-translate-y-1">
                     <div>
-                        <div class="h-48 bg-gradient-to-r from-blue-900 to-indigo-800 flex items-center justify-center text-white relative">
-                            @if($item->image)
-                                <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                        <div class="h-48 bg-gradient-to-r from-blue-900 to-indigo-800 flex items-center justify-center text-white relative overflow-hidden">
+                            @if($imgUrl)
+                                <img src="{{ $imgUrl }}" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
-                                <span class="text-4xl">📢</span>
+                                <span class="text-5xl group-hover:scale-110 transition-transform">📢</span>
                             @endif
-                            <span class="absolute top-4 left-4 bg-amber-400 text-slate-900 font-extrabold text-[10px] uppercase px-3 py-1 rounded-full">
+                            <span class="absolute top-4 left-4 bg-amber-400 text-slate-900 font-extrabold text-[10px] uppercase px-3 py-1 rounded-full shadow">
                                 {{ strtoupper($item->category) }}
                             </span>
                         </div>
                         <div class="p-6">
-                            <div class="text-xs text-slate-400 font-semibold mb-2">
-                                {{ $item->published_at ? $item->published_at->format('d M Y') : '' }}
+                            <div class="text-xs text-slate-400 font-semibold mb-2 flex items-center justify-between">
+                                <span>{{ $item->published_at ? $item->published_at->format('d M Y') : '' }}</span>
+                                <span class="text-indigo-600 font-bold text-[11px] group-hover:underline">Klik untuk baca &rarr;</span>
                             </div>
-                            <h3 class="text-lg font-black text-slate-800 mb-2 leading-snug">
+                            <h3 class="text-lg font-black text-slate-800 mb-2 leading-snug group-hover:text-[#1E3A8B] transition-colors">
                                 {{ $item->title }}
                             </h3>
                             <p class="text-slate-600 text-xs leading-relaxed line-clamp-3">
                                 {{ $item->summary ?? Str::limit(strip_tags($item->content), 120) }}
                             </p>
                         </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1E3A8B] group-hover:text-indigo-600">
+                            <span>Baca Selengkapnya</span>
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </span>
                     </div>
                 </div>
             @endforeach

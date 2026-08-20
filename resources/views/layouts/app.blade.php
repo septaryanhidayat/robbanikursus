@@ -44,7 +44,7 @@
     <!-- Tailwind Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="antialiased bg-slate-50 text-slate-800 flex flex-col min-h-screen font-sans" x-data="{ regModalOpen: false, modalProgramType: 'Kursus', modalLevel: 'SD/MI' }">
+<body class="antialiased bg-slate-50 text-slate-800 flex flex-col min-h-screen font-sans" x-data="{ regModalOpen: false, modalProgramType: 'Kursus', modalLevel: 'SD/MI', newsModalOpen: false, selectedNews: { title: '', category: '', published_at: '', summary: '', content: '', image: '' } }">
 
     <!-- Top Announcement Bar -->
     <div class="bg-amber-400 text-slate-900 text-xs sm:text-sm font-bold py-2.5 px-4 text-center flex flex-wrap justify-center items-center gap-2 shadow-inner">
@@ -306,6 +306,68 @@
                         Kirim & Konfirmasi WA
                     </button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- News & Announcement Detail Modal -->
+    <div x-show="newsModalOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+         style="display: none;">
+        
+        <div @click.away="newsModalOpen = false" class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-100 relative text-slate-800">
+            
+            <!-- Close Button -->
+            <button @click="newsModalOpen = false" class="absolute top-4 right-4 z-20 w-9 h-9 bg-slate-900/60 hover:bg-slate-900/90 text-white rounded-full flex items-center justify-center text-lg transition font-bold cursor-pointer shadow">
+                &times;
+            </button>
+
+            <!-- Modal Header Image -->
+            <template x-if="selectedNews.image">
+                <div class="h-60 sm:h-72 w-full overflow-hidden bg-slate-900 relative">
+                    <img :src="selectedNews.image" :alt="selectedNews.title" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/20"></div>
+                </div>
+            </template>
+            <template x-if="!selectedNews.image">
+                <div class="h-32 w-full bg-gradient-to-r from-[#1E3A8B] via-blue-900 to-indigo-800 flex items-center justify-center text-white relative">
+                    <span class="text-5xl">📢</span>
+                </div>
+            </template>
+
+            <!-- Modal Body Content -->
+            <div class="p-6 sm:p-8 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-amber-400 text-slate-900 font-black text-[10px] uppercase px-3 py-1 rounded-full shadow-sm" x-text="selectedNews.category"></span>
+                    <span class="text-xs font-bold text-slate-400" x-text="selectedNews.published_at"></span>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-800 leading-tight" x-text="selectedNews.title"></h2>
+
+                <template x-if="selectedNews.summary">
+                    <div class="text-sm font-semibold text-slate-600 bg-amber-50/60 p-4 rounded-2xl border-l-4 border-amber-400 leading-relaxed" x-text="selectedNews.summary"></div>
+                </template>
+
+                <div class="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed text-slate-700 space-y-3 whitespace-pre-line pt-2" x-text="selectedNews.content"></div>
+
+                <!-- Modal Footer -->
+                <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <button @click="newsModalOpen = false" class="w-full sm:w-auto px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition cursor-pointer">
+                        Tutup
+                    </button>
+                    <a :href="'https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['contact_phone'] ?? '081272218275') }}?text=' + encodeURIComponent('Halo Robbani Kursus & Privat, saya ingin menanyakan mengenai informasi: ' + selectedNews.title)" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold rounded-xl text-sm flex items-center justify-center gap-2 transition shadow-md hover:shadow-lg">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+                        </svg>
+                        <span>Tanya Info Ini via WA</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
